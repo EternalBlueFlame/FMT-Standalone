@@ -1,13 +1,17 @@
 package net.fexcraft.app.fmt.porters;
 
+import net.fexcraft.app.fmt.FMTB;
 import net.fexcraft.app.fmt.porters.PorterManager.InternalPorter;
 import net.fexcraft.app.fmt.utils.Vec3f;
 import net.fexcraft.app.fmt.wrappers.*;
+import net.fexcraft.lib.tmt.Coord2D;
 import net.fexcraft.lib.tmt.ModelRendererTurbo;
 
 import javax.swing.*;
 import java.io.*;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -125,12 +129,20 @@ public class MTBImporter extends InternalPorter {
                             );
                             break;
                         }
-                        /*
                         case "Shape":{
-                            turbo.addShape3D();
+                            List<Coord2D> positions = new ArrayList<>();
+                            int length = Integer.parseInt(parts[parts.length-12]);
+
+                            for(int i=0; i<length; i++){
+                                positions.add(new Coord2D(
+                                        Float.parseFloat(parts[58+i]), Float.parseFloat(parts[73+length+i]),
+                                        10,10));//todo, need the UV mappings whih appear to be more complex.
+                                FMTB.print(length, i, parts[58+i], parts[73+i+length]);
+                            }
+
+                            //polygon = new Shape3DWrapper(compound).setCoords();//todo wrapper may need more complex UV coord support.
                             break;
                         }
-                        */
                     }
                     if(polygon == null) continue;
                     //
